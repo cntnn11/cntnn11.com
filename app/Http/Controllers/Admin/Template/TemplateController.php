@@ -16,12 +16,12 @@ class TemplateController extends Controller
 	{
 
 
-		return view('Admin.template.list');
+		return view('admin.template.list');
 	}
 
 	public function getFormpage()
 	{
-		return view('admin.template');
+		return view('admin.template.form');
 	}
 
 }
