@@ -15,6 +15,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
 });
 
+Route::get('/', function(){
+	return view('welcome');
+});
+
 //Route::group(['domain' => Config::get('common.domain_pre_www') . '.' . Config::get('app.domain') . Config::get('common.domain_admin'), 'namespace' => 'Admin'], function() {
 	//登录
 	//Route::get('login', 'AuthController@getLogin');
