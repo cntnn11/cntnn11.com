@@ -1,4 +1,4 @@
-@extends('Admin.public._page')
+@extends('admin.public._page')
 
 @section('body')
 	<div class="settings-pane">
