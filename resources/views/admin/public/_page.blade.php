@@ -35,7 +35,7 @@
 	<!-- <link rel="shortcut icon" type="text/css" href="/"> -->
 	
 </head>
-<body class="page-body">
+<body class="page-body {{ $login_page_cls or ''  }} ">
 	@yield('body')
 	<!-- Bottom Scripts -->
 	<script src="{{ ADMINCDN('assets/js/bootstrap.min.js') }}"></script>

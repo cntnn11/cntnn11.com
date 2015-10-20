@@ -5,6 +5,14 @@
 ]);*/
 
 
+// 站点单页
+Route::get('login', function(){
+	return view('pages._login', ['login_page_cls'=>'login-page login-light']);
+});
+Route::get('404', 'ErrorPageController@notfound');
+Route::get('403', 'ErrorPageController@notRole');
+Route::get('500', 'ErrorPageController@webError');
+
 // 管理后台
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
@@ -18,6 +26,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 Route::get('/', function(){
 	return view('welcome');
 });
+
+
 
 //Route::group(['domain' => Config::get('common.domain_pre_www') . '.' . Config::get('app.domain') . Config::get('common.domain_admin'), 'namespace' => 'Admin'], function() {
 	//登录
