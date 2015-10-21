@@ -1,1 +1,7 @@
-<p>这里是模板表单页面</p>
+@extends('admin.public._admin')
+
+@section('container-content')
+
+表单页面啊
+
+@stop

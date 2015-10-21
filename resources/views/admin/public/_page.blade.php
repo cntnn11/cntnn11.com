@@ -44,9 +44,12 @@
 	<script src="{{ ADMINCDN('assets/js/joinable.js') }}"></script>
 	<script src="{{ ADMINCDN('assets/js/xenon-api.js') }}"></script>
 	<script src="{{ ADMINCDN('assets/js/xenon-toggles.js') }}"></script>
+
+	@yield('footer_include_js')
+
 	<!-- JavaScripts initializations and stuff -->
 	<script src="{{ ADMINCDN('assets/js/xenon-custom.js') }}"></script>
 
-	@yield('footer_js')
+	@yield('footer_custom_js')
 </body>
 </html>

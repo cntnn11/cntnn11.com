@@ -6,6 +6,7 @@ return [
 
 	'cdn'					=> env('CDN_URL'),
 	'cdn_admin'				=> env('CDN_URL_ADMIN'),
+	'cdn_vendor'			=> env('CND_URL_VENDOR'),
 
 	// 测试，后门
 	'allow_test_method'		=> env('ALLOW_TEST_METHOD', false),

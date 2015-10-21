@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Session;
 use Config;
 use Auth;
@@ -36,6 +38,6 @@ class AuthController extends Controller
 
 	public function getLogin()
 	{
-		return view('auth.login');
+		return view('admin.auth.login', ['login_page_cls'=>' login-page login-light']);
 	}
 }

@@ -2,6 +2,6 @@
 
 @section('container-content')
 
-这是table列表页面
+<h1>欢迎回来！@{{ $author }}</h1>
 
 @stop

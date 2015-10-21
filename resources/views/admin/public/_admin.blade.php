@@ -119,7 +119,9 @@
 
 		<div class="main-content">
 
-			@include('admin.public._admin_breadcrumb')
+			@if( isset($breadcrumb) )
+				@include('admin.public._admin_breadcrumb')
+			@endif
 
 			@yield('container-content')
 
