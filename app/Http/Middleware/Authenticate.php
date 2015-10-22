@@ -45,4 +45,10 @@ class Authenticate
 
 		return $next($request);
 	}
+
+	// 判断是否已登录
+	function checkoutLogin()
+	{
+
+	}
 }

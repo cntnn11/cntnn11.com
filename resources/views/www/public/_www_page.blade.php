@@ -34,7 +34,6 @@
 	@yield('container')
 
 
-	<hr class="featurette-divider">
 	<footer>
 		<p>&copy; 2015 Company, Inc. &middot; 
 	</footer>
