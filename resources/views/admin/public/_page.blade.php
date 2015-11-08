@@ -9,8 +9,7 @@
 	<meta name="author" content="" />
 
 	<title>@if (trim($__env->yieldContent('title'))) @yield('title') - @endif{{ Config::get('app.name') }}</title>
-	<meta name="csrf-token" content="{{ csrf_token() }}">
-	<script type="text/javascript">window.CDN_BASE='{{ ADMINCDN('') }}';window.APP_URL='{{ url() }}/';</script>
+	<script type="text/javascript">window.CDN_BASE='{{ ADMINCDN('') }}';window.APP_URL='{{ url() }}/';window._token='{{ csrf_token() }}';</script>
 
 	<link rel="stylesheet" href="http://fonts.useso.com/css?family=Arimo:400,700,400italic">
 	<link rel="stylesheet" href="{{ ADMINCDN('assets/css/fonts/linecons/css/linecons.css') }}">

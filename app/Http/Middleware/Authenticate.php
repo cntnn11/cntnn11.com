@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use Auth;
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
 
@@ -34,6 +35,11 @@ class Authenticate
 	 */
 	public function handle($request, Closure $next)
 	{
+
+		/*if (Auth::user()->status)
+		{
+			return view('errors.tips', ['message' => '您的账号尚未开通,请联系管理员', 'url_title' => '退出登录', 'url' => url('auth/logout')]);
+		}*/
 
 		/*if ($this->auth->guest()) {
 			if ($request->ajax()) {

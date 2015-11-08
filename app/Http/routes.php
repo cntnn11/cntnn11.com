@@ -28,8 +28,9 @@ Route::group(['namespace'=>'Www'], function(){
 // 管理后台
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', ], function () {
 
-	Route::get('/login', 'AuthController@getLogin');
 	Route::controller('auth', 'AuthController');
+	Route::get('/login', 'AuthController@getLogin');
+	Route::post('/dologin', 'AccountController@postDoLogin');
 
 	Route::group(['middleware'=>['auth']], function(){
 

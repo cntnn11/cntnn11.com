@@ -1,8 +1,6 @@
 @extends('admin.public._page')
 
 @section('body')
-
-
 <body class="page-body login-page">
 	<div class="login-container">
 		<div class="row">
@@ -11,7 +9,7 @@
 				<div class="errors-container"></div>
 
 				<!-- Add class "fade-in-effect" for login form effect -->
-				<form method="post" role="form" id="login" class="login-form fade-in-effect">
+				<form action="{{ $form_action }}" method="post" role="form" id="login" class="login-form fade-in-effect">
 					
 					<div class="login-header">
 						<a href="dashboard-1.html" class="logo">
@@ -33,8 +31,7 @@
 					</div>
 					
 					<div class="form-group">
-						<button type="submit" class="btn btn-dark  btn-block text-left">
-							<i class="fa-lock"></i>
+						<button type="submit" class="btn btn-dark  btn-block text-left"><i class="fa-lock"></i>
 							Log In
 						</button>
 					</div>
@@ -77,7 +74,6 @@ jQuery(document).ready(function($)
 				required: 'Please enter your password.'
 			}
 		},
-		
 		// Form Processing via AJAX
 		submitHandler: function(form)
 		{
@@ -96,18 +92,21 @@ jQuery(document).ready(function($)
 				"showMethod": "fadeIn",
 				"hideMethod": "fadeOut"
 			};
-				
+			var form_action	= $('#login').attr('action');
 			$.ajax({
-				url: "data/login-check.php",
+				url: form_action,
 				method: 'POST',
 				dataType: 'json',
 				data: {
 					do_login: true,
 					username: $(form).find('#username').val(),
 					passwd: $(form).find('#passwd').val(),
+					_token: _token
 				},
 				success: function(resp)
 				{
+console.log( resp );
+return false;
 					show_loading_bar(
 					{
 						delay: .5,

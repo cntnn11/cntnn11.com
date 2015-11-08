@@ -2,26 +2,34 @@
 /**
  *	@desc 公共函数库文件
 */
+// 管理后台的css、js等路径
 function ADMINCDN($file)
 {
 	$cdn	= rtrim(Config::get('common.cdn_admin', ''), '/');
 	$path	= Config::get('app.url') . $cdn.'/'.$file;
 	return $path;
 }
-
+// 前端插件目录
 function CDN($file)
 {
 	$cdn	= rtrim(Config::get('common.cdn', ''), '/');
 	$path	= Config::get('app.url') . $cdn . '/' . $file;
 	return $path;
 }
-
+// 第三方前端插件的目录
 function CDNVENDOR($file)
 {
 	$cdn	= rtrim(Config::get('common.cdn_vendor', ''), '/');
 	$path	= Config::get('app.url') . $cdn . '/' . $file;
 	return $path;
 }
+// 管理后台的url前缀
+function ADMINURL($path)
+{
+	$url	= Config::get('app.url') . '/admin' . $path;
+	return $url;
+}
+
 
 function ucAuthcode($string, $operation = 'DECODE', $key = 'Driver&&Programmer', $expiry = 0)
 {

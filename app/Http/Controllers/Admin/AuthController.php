@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Service;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Session;
@@ -38,6 +39,13 @@ class AuthController extends Controller
 
 	public function getLogin()
 	{
-		return view('admin.auth.login', ['login_page_cls'=>' login-page login-light']);
+		$form_action	= ADMINURL('/dologin');
+		$login_page_cls	= " login-page login-light";
+		return view('admin.auth.login', [
+			'login_page_cls'=> $login_page_cls,
+			'form_action'	=> $form_action,
+		]);
 	}
+
+
 }
