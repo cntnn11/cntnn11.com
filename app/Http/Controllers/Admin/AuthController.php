@@ -37,6 +37,11 @@ class AuthController extends Controller
 		$this->middleware('guest', ['except' => 'getLogout']);
 	}
 
+	public function getIndex()
+	{
+		$this->getLogin();
+	}
+
 	public function getLogin()
 	{
 		$form_action	= ADMINURL('/dologin');
@@ -47,5 +52,10 @@ class AuthController extends Controller
 		]);
 	}
 
+	public function postDologin()
+	{
+
+		exit( json_encode(['error'=>1, 'message'=>"OK"]) );
+	}
 
 }

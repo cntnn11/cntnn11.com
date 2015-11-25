@@ -26,28 +26,26 @@ Route::group(['namespace'=>'Www'], function(){
 });
 
 // 管理后台
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin', ], function () {
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware'=>'auth' ], function () {
+	/*// 学习生涯设置
+	Route::group(['prefix' => 'career', 'namespace' => 'Career'], function () {
+	    Route::controller('path', 'PathController');
+	    Route::controller('taskinfo', 'TaskInfoController');
+	    Route::controller('hwinfo', 'HomeworkInfoController');
+	    Route::controller('/', 'CareerController');
+	});*/
 
-	Route::controller('auth', 'AuthController');
-	Route::get('/login', 'AuthController@getLogin');
-	Route::post('/dologin', 'AccountController@postDoLogin');
+	Route::controller('login', 'AuthController');
+	//Route::get('/login', 'AuthController@getLogin');
+	//Route::post('/dologin', 'AccountController@postDoLogin');
 
-	Route::group(['middleware'=>['auth']], function(){
-
-		Route::any('/index', function(){
-			return view('admin.main.welcome');
-		});
-
-		Route::group(['prefix' => 'template', 'namespace' => 'Template'], function () {
-			Route::get('listpage', 'TemplateController@listpage');
-			Route::get('formpage', 'TemplateController@formpage');
-		});
-
+	Route::group(['prefix' => 'template', 'namespace' => 'Template'], function () {
+		Route::get('listpage', 'TemplateController@listpage');
+		Route::get('formpage', 'TemplateController@formpage');
 	});
 
-		
-
-	
+	//Route::controller('/index', 'MainController');
+	Route::get('/', 'MainController@welcome');
 
 });
 
