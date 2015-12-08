@@ -18,11 +18,10 @@
 						
 						<p>输入正确就可以进来</p>
 					</div>
-	
-					
+
 					<div class="form-group">
-						<label class="control-label" for="username">Username</label>
-						<input type="text" class="form-control input-dark" name="username" id="username" autocomplete="off" />
+						<label class="control-label" for="username">Email</label>
+						<input type="text" class="form-control input-dark" name="email" id="email" autocomplete="off" />
 					</div>
 					
 					<div class="form-group">
@@ -36,7 +35,9 @@
 						</button>
 					</div>
 				</form>
-
+				@if( !empty($pwd) && is_array($pwd) )
+				<input type="hidden" {{ $pwd['source'] or '' }}="{{ $pwd['encryp'] or '' }}">
+				@endif
 			</div>
 		</div>
 	</div>
@@ -51,33 +52,36 @@
 <script type="text/javascript">
 jQuery(document).ready(function($)
 {
-	// Reveal Login form
 	setTimeout(function(){ $(".fade-in-effect").addClass('in'); }, 1);
-	// Validation and Ajax action
 	$("form#login").validate({
 		rules: {
-			username: {
-				required: true
-			},
-			
-			passwd: {
-				required: true
-			}
+			username: { required: true, mail:true},
+			passwd: { required: true }
 		},
-		
 		messages: {
-			username: {
-				required: 'Please enter your username.'
-			},
-			
-			passwd: {
-				required: 'Please enter your password.'
-			}
+			email: {required: '输入你的E-mail地址'},
+			passwd: { required: '输入密码' }
 		},
-		// Form Processing via AJAX
+		invalidHandler: function (event, validator) {
+		},
+		errorPlacement: function (error, element) {
+			var icon = $(element).parent('.input-icon').children('i');
+			icon.removeClass('fa-check').addClass("fa-warning");  
+			icon.attr("data-original-title", error.text()).tooltip({'container': 'body'});
+			return false;
+		},
+		highlight: function (element) {
+			$(element).closest('.form-group').removeClass("has-success").addClass('has-error');
+		},
+		unhighlight: function (element){},
+		success: function (label, element) {
+			var icon = $(element).parent('.input-icon').children('i');
+			$(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+			icon.removeClass("fa-warning").addClass("fa-check");
+		},
 		submitHandler: function(form)
 		{
-			show_loading_bar(70); // Fill progress bar to 70% (just a given value)
+			show_loading_bar(70);
 			var opts = {
 				"closeButton": true,
 				"debug": false,
@@ -93,46 +97,35 @@ jQuery(document).ready(function($)
 				"hideMethod": "fadeOut"
 			};
 			var form_action	= $('#login').attr('action');
-			$.ajax({
-				url: form_action,
-				method: 'POST',
-				dataType: 'json',
-				data: {
-					do_login: true,
-					username: $(form).find('#username').val(),
-					passwd: $(form).find('#passwd').val(),
-					_token: _token
-				},
-				success: function(resp)
-				{
-console.log( resp );
-return false;
-					show_loading_bar(
-					{
-						delay: .5,
-						pct: 100,
-						finish: function(){
-							
-							// Redirect after successful login page (when progress bar reaches 100%)
-							if(resp.accessGranted)
-							{
-								window.location.href = 'dashboard-1.html';
+
+			var email	= $(form).find('#email').val();
+			var pwd		= $(form).find('#passwd').val();
+			if( email && pwd )
+			{
+				$.ajax({ url: form_action, method: 'POST', dataType: 'json',
+					data: { do_login: true, email: email, password: pwd, _token: _token },
+					success: function(resp) {
+						show_loading_bar({ delay: .5, pct: 100, finish: function(){
+								if(resp.code=='200')
+								{
+									window.location.href = resp.data.url;
+								}
+								else
+								{
+									toastr.error(":) ERROR!", resp.msg, opts);
+									$passwd.select();
+								}
 							}
-							else
-							{
-								toastr.error("You have entered wrong password, please try again. User and password is <strong>demo/demo</strong> :)", "Invalid Login!", opts);
-								$passwd.select();
-							}
-						}
-					});
-					
-				}
-			});
-			
+						});
+					}
+				});
+			}
+			else
+			{
+				alert('请填写登录邮箱和密码！');
+			}
 		}
 	});
-	
-	// Set Form focus
 	$("form#login .form-group:has(.form-control):first .form-control").focus();
 });
 </script>

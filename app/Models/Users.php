@@ -3,11 +3,23 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Auth\GenericUser;
 
-class Users extends _BaseModel
+class Users extends _BaseModel implements AuthenticatableContract
 {
+	use Authenticatable;
 
 	protected $table = 'users';
 
-	protected $fillable = ['id', 'user_login', 'user_pass', 'user_nickname', 'user_email', 'user_url', 'user_registered', 'user_activation_key', 'user_status', 'display_name', ''];
+	protected $primaryKey = 'id';
+
+	protected $fillable = ['id', 'user_login', 'password', 'user_nickname', 'user_email', 'user_url', 'user_registered', 'user_activation_key', 'user_status', 'display_name', ''];
+
+	protected $hidden = ['remember_token'];
+
+	public $incrementing = false;
+
+
 }

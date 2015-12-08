@@ -2,6 +2,17 @@
 /**
  *	@desc 公共函数库文件
 */
+
+function ADMINLOGINURL( $action = '' )
+{
+	return url('admin/login' . $action);
+}
+// 管理后台的url前缀
+function ADMINURL( $path = '' )
+{
+	$url	= Config::get('app.url') . '/admin' . $path;
+	return $url;
+}
 // 管理后台的css、js等路径
 function ADMINCDN($file)
 {
@@ -9,6 +20,7 @@ function ADMINCDN($file)
 	$path	= Config::get('app.url') . $cdn.'/'.$file;
 	return $path;
 }
+
 // 前端插件目录
 function CDN($file)
 {
@@ -16,21 +28,25 @@ function CDN($file)
 	$path	= Config::get('app.url') . $cdn . '/' . $file;
 	return $path;
 }
-// 第三方前端插件的目录
+// 第三方静态插件的目录
 function CDNVENDOR($file)
 {
 	$cdn	= rtrim(Config::get('common.cdn_vendor', ''), '/');
 	$path	= Config::get('app.url') . $cdn . '/' . $file;
 	return $path;
 }
-// 管理后台的url前缀
-function ADMINURL($path)
+
+// 把一个数组，以JSON格式返回。一把用于Ajax和API
+function exitResult($code = '', $msg = '', $data = [] )
 {
-	$url	= Config::get('app.url') . '/admin' . $path;
-	return $url;
+	$result['code']	= $code;
+	$result['msg']	= $msg;
+	$result['data']	= $data;
+	return response()->json($result);
+	//exit( json_encode($result) ); 
 }
 
-
+// UC加密解密方案
 function ucAuthcode($string, $operation = 'DECODE', $key = 'Driver&&Programmer', $expiry = 0)
 {
 	$ckey_length = 4;

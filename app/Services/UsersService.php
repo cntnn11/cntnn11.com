@@ -38,4 +38,25 @@ class UsersService extends Users
 			return false;
 		}
 	}
+
+	// 根据用户名和密码获取用户信息
+	public function getUInfo($username, $password)
+	{
+		$info	= false;
+		if( !empty($username) && !empty($password) )
+		{
+			$info	= $this->where('user_status', 1)->where('user_login', $username)->where('password', $password)->first();
+			$info	= empty($info) ? false : $info->toArray();
+		}
+		return $info;
+	}
+
+
+	protected static function rules()
+	{
+		return [
+			'username'	=> 'required',
+			'passwd'	=> 'required'
+		];
+	}
 }

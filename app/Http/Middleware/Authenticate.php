@@ -35,26 +35,25 @@ class Authenticate
 	 */
 	public function handle($request, Closure $next)
 	{
-
-		/*if (Auth::user()->status)
+		if ($this->auth->guest())
 		{
-			return view('errors.tips', ['message' => '您的账号尚未开通,请联系管理员', 'url_title' => '退出登录', 'url' => url('auth/logout')]);
-		}*/
-
-		/*if ($this->auth->guest()) {
-			if ($request->ajax()) {
-				return response('Unauthorized.', 401);
-			} else {
-				return redirect()->guest('auth/login');
+			if ($request->ajax())
+			{
+				return response('请先登录~.', 401);
 			}
-		}*/
+			else
+			{
+				return redirect()->guest( ADMINLOGINURL() );
+			}
+		}
+		else
+		{
+			if (Auth::user()->status)
+			{
+				return view('errors.tips', ['message' => '您的账号尚未开通,请联系管理员', 'url_title' => '退出登录', 'url' => url('auth/logout')]);
+			}
+		}
 
 		return $next($request);
-	}
-
-	// 判断是否已登录
-	function checkoutLogin()
-	{
-
 	}
 }
